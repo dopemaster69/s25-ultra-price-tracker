@@ -1,31 +1,38 @@
-from src.database.db import initialize_database
 from src.services.price_engine import PriceEngine
+from src.exporters.json_exporter import export_latest_prices
 
 
 def main():
 
-    initialize_database()
-
     engine = PriceEngine()
 
-    url = input("Amazon URL: ")
-
-    results = engine.collect_all(url)
+    results = engine.collect_all()
 
     print()
-
-    print("=" * 50)
-
-    print("PRICE REPORT")
-
-    print("=" * 50)
+    print("=" * 60)
+    print("ATLAS")
+    print("=" * 60)
 
     for result in results:
 
         if result.success:
-            print(f"{result.retailer:<15} ₹{result.price:,}")
+
+            print(f"✓ {result.retailer}")
+            print(f"Title    : {result.title}")
+            print(f"Storage  : {result.storage}")
+            print(f"Colour   : {result.colour}")
+            print(f"Price    : ₹{result.price:,}")
+
         else:
-            print(f"{result.retailer:<15} FAILED")
+
+            print(f"✗ {result.retailer}")
+            print(f"Error    : {result.error}")
+
+        print("-" * 60)
+
+    export_latest_prices()
+
+    print("\n✅ latest_prices.json generated")
 
 
 if __name__ == "__main__":
