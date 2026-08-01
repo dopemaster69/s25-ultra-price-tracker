@@ -35,7 +35,20 @@ def export_latest_prices():
                 "updated": timestamp
             }
 
+    lowest_retailer = None
+    lowest_price = None
+
+    for retailer, info in latest.items():
+
+        if lowest_price is None or info["price"] < lowest_price:
+
+            lowest_price = info["price"]
+            lowest_retailer = retailer
+
     output = {
+        "generated_at": rows[0][4] if rows else None,
+        "lowest_price": lowest_price,
+        "lowest_retailer": lowest_retailer,
         "retailers": latest
     }
 
