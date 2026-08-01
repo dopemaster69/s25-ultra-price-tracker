@@ -1,17 +1,19 @@
-from src.scrapers.amazon import AmazonScraper
+from src.database.db import initialize_database
+from src.services.price_engine import PriceEngine
 
 
 def main():
 
-    scraper = AmazonScraper()
+    initialize_database()
+
+    engine = PriceEngine()
 
     url = input("Amazon URL: ")
 
-    price = scraper.get_price(url)
+    price = engine.collect_amazon_price(url)
 
-    print("\nCurrent Price")
-
-    print(price)
+    print(f"\nCurrent Price: ₹{price}")
+    print("✅ Saved to database")
 
 
 if __name__ == "__main__":
