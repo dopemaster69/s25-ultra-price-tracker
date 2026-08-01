@@ -1,0 +1,45 @@
+:root{
+
+    /* Backgrounds */
+
+    --bg:#050816;
+
+    --surface:#0F172A;
+
+    --card:#111827;
+
+    --border:#243041;
+
+    /* Brand */
+
+    --cyan:#00D9FF;
+
+    --purple:#A855F7;
+
+    --pink:#F472B6;
+
+    --green:#84CC16;
+
+    --red:#FF4D6D;
+
+    --yellow:#FBBF24;
+
+    /* Text */
+
+    --text:#FFFFFF;
+
+    --muted:#94A3B8;
+
+    --disabled:#475569;
+
+    /* Radius */
+
+    --radius:24px;
+
+    /* Shadows */
+
+    --cyan-glow:0 0 25px rgba(0,217,255,.18);
+
+    --purple-glow:0 0 25px rgba(168,85,247,.18);
+
+}

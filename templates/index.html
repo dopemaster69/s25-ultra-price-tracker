@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ATLAS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <div>
+
+            <h1>ATLAS</h1>
+
+            <p>Always know the best time to buy.</p>
+
+        </div>
+
+        <div class="live">
+
+            <span class="dot"></span>
+
+            LIVE
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="section-title">
+
+            DEVICE
+
+        </div>
+
+        <h2>{{ product }}</h2>
+
+        <p class="storage">{{ storage }}</p>
+
+        <div class="price">
+
+            ₹{{ "{:,}".format(price) }}
+
+        </div>
+
+        <div class="buy">
+
+            {{ analysis.recommendation }}
+
+        </div>
+
+        <p style="margin-top:20px;color:#94A3B8;line-height:1.5">
+
+            {{ analysis.reason }}
+
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="info">
+
+            <div>
+
+                <span>SOURCE</span>
+
+                <strong>{{ retailer }}</strong>
+
+            </div>
+
+            <div>
+
+                <span>LAST SYNC</span>
+
+                <strong>{{ updated }}</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card">
+
+        <div class="section-title">
+
+            MARKET ANALYSIS
+
+        </div>
+
+        <div class="info">
+
+            <div>
+
+                <span>LOWEST</span>
+
+                <strong>₹{{ "{:,}".format(analysis.lowest) }}</strong>
+
+            </div>
+
+            <div>
+
+                <span>HIGHEST</span>
+
+                <strong>₹{{ "{:,}".format(analysis.highest) }}</strong>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="info">
+
+            <div>
+
+                <span>AVERAGE</span>
+
+                <strong>₹{{ "{:,}".format(analysis.average) }}</strong>
+
+            </div>
+
+            <div>
+
+                <span>CONFIDENCE</span>
+
+                <strong>{{ analysis.confidence }}%</strong>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="info">
+
+            <div>
+
+                <span>CHANGE</span>
+
+                <strong>
+
+                    {% if analysis.difference < 0 %}
+
+                        ▼ ₹{{ "{:,}".format((-analysis.difference)) }}
+
+                    {% elif analysis.difference > 0 %}
+
+                        ▲ ₹{{ "{:,}".format(analysis.difference) }}
+
+                    {% else %}
+
+                        No Change
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+            <div>
+
+                <span>% CHANGE</span>
+
+                <strong>{{ analysis.percentage }}%</strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

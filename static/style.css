@@ -1,0 +1,218 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#050816;
+
+    color:white;
+
+    font-family:'Space Grotesk',sans-serif;
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:40px;
+}
+
+.container{
+
+    width:100%;
+
+    max-width:430px;
+}
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:35px;
+}
+
+.header h1{
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:48px;
+
+    letter-spacing:4px;
+
+    color:#00E5FF;
+}
+
+.header p{
+
+    margin-top:8px;
+
+    color:#94A3B8;
+
+    font-size:15px;
+}
+
+.live{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#39FF88;
+
+    font-size:13px;
+
+    font-weight:bold;
+}
+
+.dot{
+
+    width:10px;
+
+    height:10px;
+
+    background:#39FF88;
+
+    border-radius:50%;
+
+    box-shadow:0 0 10px #39FF88;
+
+    animation:pulse 1.8s infinite;
+}
+
+.card{
+
+    background:#111827;
+
+    border:1px solid rgba(0,229,255,.15);
+
+    border-radius:22px;
+
+    padding:28px;
+
+    box-shadow:
+        0 0 40px rgba(0,229,255,.08);
+}
+
+.section-title{
+
+    color:#00E5FF;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+    margin-bottom:15px;
+}
+
+.card h2{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+}
+
+.storage{
+
+    color:#94A3B8;
+
+    margin-bottom:30px;
+}
+
+.price{
+
+    font-size:64px;
+
+    font-weight:bold;
+
+    color:#00E5FF;
+
+    text-shadow:0 0 20px rgba(0,229,255,.25);
+
+    margin-bottom:20px;
+}
+
+.buy{
+
+    display:inline-block;
+
+    background:#39FF88;
+
+    color:#050816;
+
+    font-weight:bold;
+
+    padding:10px 20px;
+
+    border-radius:30px;
+
+    margin-bottom:35px;
+}
+
+.divider{
+
+    height:1px;
+
+    background:#233044;
+
+    margin-bottom:25px;
+}
+
+.info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.info span{
+
+    display:block;
+
+    color:#94A3B8;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    margin-bottom:8px;
+}
+
+.info strong{
+
+    font-size:15px;
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:1;
+    }
+
+    50%{
+
+        transform:scale(1.35);
+
+        opacity:.4;
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+    }
+
+}
