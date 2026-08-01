@@ -5,26 +5,28 @@ from src.database.db import save_price
 class PriceEngine:
 
     def __init__(self):
-        self.amazon = AmazonScraper()
 
-    def collect_amazon_price(self, url):
+        self.scrapers = [
+            AmazonScraper()
+        ]
 
-        price = self.amazon.get_price(url)
+    def collect_all(self, url):
 
-        cleaned_price = (
-            price.replace("₹", "")
-                 .replace(",", "")
-                 .replace(".", "")
-                 .strip()
-        )
+        results = []
 
-        numeric_price = int(cleaned_price)
+        for scraper in self.scrapers:
 
-        save_price(
-            retailer="Amazon",
-            product="Samsung Galaxy S25 Ultra",
-            storage="256 GB",
-            price=numeric_price
-        )
+            result = scraper.scrape(url)
 
-        return numeric_price
+            results.append(result)
+
+            if result.success:
+
+                save_price(
+                    retailer=result.retailer,
+                    product="Samsung Galaxy S25 Ultra",
+                    storage="256 GB",
+                    price=result.price
+                )
+
+        return results

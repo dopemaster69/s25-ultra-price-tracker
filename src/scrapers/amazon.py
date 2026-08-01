@@ -1,10 +1,12 @@
 from selectolax.parser import HTMLParser
+
+from src.models.price_result import PriceResult
 from src.scrapers.base import BaseScraper
 
 
 class AmazonScraper(BaseScraper):
 
-    def get_price(self, url):
+    def scrape(self, url):
 
         html = self.fetch(url)
 
@@ -23,6 +25,22 @@ class AmazonScraper(BaseScraper):
             node = tree.css_first(selector)
 
             if node:
-                return node.text(strip=True)
 
-        return None
+                price = (
+                    node.text(strip=True)
+                        .replace(",", "")
+                        .replace(".", "")
+                )
+
+                return PriceResult(
+                    retailer="Amazon",
+                    price=int(price),
+                    url=url
+                )
+
+        return PriceResult(
+            retailer="Amazon",
+            price=None,
+            url=url,
+            success=False
+        )

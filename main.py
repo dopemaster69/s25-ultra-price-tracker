@@ -10,10 +10,22 @@ def main():
 
     url = input("Amazon URL: ")
 
-    price = engine.collect_amazon_price(url)
+    results = engine.collect_all(url)
 
-    print(f"\nCurrent Price: ₹{price}")
-    print("✅ Saved to database")
+    print()
+
+    print("=" * 50)
+
+    print("PRICE REPORT")
+
+    print("=" * 50)
+
+    for result in results:
+
+        if result.success:
+            print(f"{result.retailer:<15} ₹{result.price:,}")
+        else:
+            print(f"{result.retailer:<15} FAILED")
 
 
 if __name__ == "__main__":
