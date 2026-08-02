@@ -2,11 +2,20 @@ from src.services.price_engine import PriceEngine
 from src.exporters.json_exporter import export_latest_prices
 
 
-def main():
+def run_collection():
 
     engine = PriceEngine()
 
     results = engine.collect_all()
+
+    export_latest_prices()
+
+    return results
+
+
+def main():
+
+    results = run_collection()
 
     print()
     print("=" * 60)
@@ -29,8 +38,6 @@ def main():
             print(f"Error    : {result.error}")
 
         print("-" * 60)
-
-    export_latest_prices()
 
     print("\n✅ latest_prices.json generated")
 

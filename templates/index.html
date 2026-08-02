@@ -5,171 +5,427 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>ATLAS</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet"
+          href="/static/style.css">
 
 </head>
 
 <body>
 
+<div class="background-grid"></div>
+
 <div class="container">
 
-    <div class="header">
+    <!-- ===========================
+            HEADER
+    ============================ -->
+
+    <header class="topbar">
 
         <div>
 
-            <h1>ATLAS</h1>
+            <h1 class="logo">
 
-            <p>Always know the best time to buy.</p>
+                <span class="logo-dot"></span>
 
-        </div>
+                ATLAS
 
-        <div class="live">
+            </h1>
 
-            <span class="dot"></span>
+            <p class="subtitle">
 
-            LIVE
+                Always know the best time to buy.
 
-        </div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="section-title">
-
-            DEVICE
+            </p>
 
         </div>
 
-        <h2>{{ product }}</h2>
+        <div class="status">
 
-        <p class="storage">{{ storage }}</p>
+            <span class="status-dot"></span>
 
-        <div class="price">
-
-            ₹{{ "{:,}".format(price) }}
+            ONLINE
 
         </div>
 
-        <div class="buy">
+    </header>
 
-            {{ analysis.recommendation }}
+    <!-- ===========================
+            HERO
+    ============================ -->
+
+    <section class="hero-card">
+
+        <div class="hero-left">
+
+            <span class="section-label">
+
+                TARGET DEVICE
+
+            </span>
+
+            <h2>
+
+                {{ product }}
+
+            </h2>
+
+            <p class="device-storage">
+
+                {{ storage }}
+
+            </p>
+
+            <p class="reason">
+
+                {{ analysis.reason }}
+
+            </p>
 
         </div>
 
-        <p style="margin-top:20px;color:#94A3B8;line-height:1.5">
+        <div class="hero-right">
 
-            {{ analysis.reason }}
+            <div class="price">
 
-        </p>
-
-        <div class="divider"></div>
-
-        <div class="info">
-
-            <div>
-
-                <span>SOURCE</span>
-
-                <strong>{{ retailer }}</strong>
+                ₹{{ "{:,}".format(price) }}
 
             </div>
 
-            <div>
+            <div class="recommendation">
 
-                <span>LAST SYNC</span>
-
-                <strong>{{ updated }}</strong>
+                {{ analysis.recommendation }}
 
             </div>
 
-        </div>
+            <div class="hero-meta">
 
-    </div>
+                <div>
 
-    <br>
+                    <span>
 
-    <div class="card">
+                        Retailer
 
-        <div class="section-title">
+                    </span>
 
-            MARKET ANALYSIS
+                    <strong>
 
-        </div>
+                        {{ retailer }}
 
-        <div class="info">
+                    </strong>
 
-            <div>
+                </div>
 
-                <span>LOWEST</span>
+                <div>
 
-                <strong>₹{{ "{:,}".format(analysis.lowest) }}</strong>
+                    <span>
 
-            </div>
+                        Updated
 
-            <div>
+                    </span>
 
-                <span>HIGHEST</span>
+                    <strong>
 
-                <strong>₹{{ "{:,}".format(analysis.highest) }}</strong>
+                        {{ updated }}
 
-            </div>
+                    </strong>
 
-        </div>
-
-        <br>
-
-        <div class="info">
-
-            <div>
-
-                <span>AVERAGE</span>
-
-                <strong>₹{{ "{:,}".format(analysis.average) }}</strong>
-
-            </div>
-
-            <div>
-
-                <span>CONFIDENCE</span>
-
-                <strong>{{ analysis.confidence }}%</strong>
+                </div>
 
             </div>
 
         </div>
 
-        <br>
+    </section>
 
-        <div class="info">
+    <!-- ===========================
+            QUICK STATS
+    ============================ -->
 
-            <div>
+    <section class="stats-grid">
 
-                <span>CHANGE</span>
+        <div class="stat-card">
+
+            <span>
+
+                LOWEST
+
+            </span>
+
+            <strong>
+
+                ₹{{ "{:,}".format(analysis.lowest) }}
+
+            </strong>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>
+
+                HIGHEST
+
+            </span>
+
+            <strong>
+
+                ₹{{ "{:,}".format(analysis.highest) }}
+
+            </strong>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>
+
+                AVERAGE
+
+            </span>
+
+            <strong>
+
+                ₹{{ "{:,}".format(analysis.average) }}
+
+            </strong>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span>
+
+                CONFIDENCE
+
+            </span>
+
+            <strong>
+
+                {{ analysis.confidence }}%
+
+            </strong>
+
+        </div>
+
+    </section>
+        <!-- ===========================
+            PRICE HISTORY
+    ============================ -->
+
+    <section class="timeline-card">
+
+        <div class="card-header">
+
+            PRICE HISTORY
+
+        </div>
+
+        <svg
+            id="priceGraph"
+            viewBox="0 0 900 220"
+            preserveAspectRatio="none">
+
+            <defs>
+
+                <linearGradient
+                    id="atlasGradient"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%">
+
+                    <stop offset="0%"
+                          stop-color="#00D9FF"/>
+
+                    <stop offset="50%"
+                          stop-color="#8B5CF6"/>
+
+                    <stop offset="100%"
+                          stop-color="#EC4899"/>
+
+                </linearGradient>
+
+            </defs>
+
+            <polyline
+
+                id="graphLine"
+
+                points=""
+
+                fill="none"
+
+                stroke="url(#atlasGradient)"
+
+                stroke-width="5"
+
+                stroke-linecap="round"
+
+                stroke-linejoin="round">
+
+            </polyline>
+
+        </svg>
+
+    </section>
+
+    <!-- ===========================
+            MARKET
+    ============================ -->
+
+    <section class="double-grid">
+
+        <div class="market-card">
+
+            <div class="card-header">
+
+                MARKET
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Retailer
+
+                </span>
 
                 <strong>
 
-                    {% if analysis.difference < 0 %}
+                    {{ retailer }}
 
-                        ▼ ₹{{ "{:,}".format((-analysis.difference)) }}
+                </strong>
 
-                    {% elif analysis.difference > 0 %}
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Lowest Price
+
+                </span>
+
+                <strong>
+
+                    ₹{{ "{:,}".format(analysis.lowest) }}
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Highest Price
+
+                </span>
+
+                <strong>
+
+                    ₹{{ "{:,}".format(analysis.highest) }}
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Average Price
+
+                </span>
+
+                <strong>
+
+                    ₹{{ "{:,}".format(analysis.average) }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="system-card">
+
+            <div class="card-header">
+
+                ANALYTICS
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Recommendation
+
+                </span>
+
+                <strong>
+
+                    {{ analysis.recommendation }}
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Confidence
+
+                </span>
+
+                <strong>
+
+                    {{ analysis.confidence }}%
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Difference
+
+                </span>
+
+                <strong>
+
+                    {% if analysis.difference > 0 %}
 
                         ▲ ₹{{ "{:,}".format(analysis.difference) }}
 
+                    {% elif analysis.difference < 0 %}
+
+                        ▼ ₹{{ "{:,}".format((-analysis.difference)) }}
+
                     {% else %}
 
-                        No Change
+                        ₹0
 
                     {% endif %}
 
@@ -177,19 +433,206 @@
 
             </div>
 
-            <div>
+            <div class="market-row">
 
-                <span>% CHANGE</span>
+                <span>
 
-                <strong>{{ analysis.percentage }}%</strong>
+                    Percentage
+
+                </span>
+
+                <strong>
+
+                    {{ analysis.percentage }}%
+
+                </strong>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
+        <!-- ===========================
+            NETWORK
+    ============================ -->
+
+    <section class="double-grid">
+
+        <div class="system-card">
+
+            <div class="card-header">
+
+                NETWORK STATUS
+
+            </div>
+
+            <ul class="network-list">
+
+                <li>
+
+                    <span class="online"></span>
+
+                    Amazon Connected
+
+                </li>
+
+                <li>
+
+                    <span class="online"></span>
+
+                    Database Online
+
+                </li>
+
+                <li>
+
+                    <span class="online"></span>
+
+                    Recommendation Engine
+
+                </li>
+
+                <li>
+
+                    <span class="online"></span>
+
+                    API Ready
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="system-card">
+
+            <div class="card-header">
+
+                SYSTEM
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Status
+
+                </span>
+
+                <strong id="systemStatus">
+
+                    ONLINE
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Product
+
+                </span>
+
+                <strong>
+
+                    Samsung S25 Ultra
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Storage
+
+                </span>
+
+                <strong>
+
+                    {{ storage }}
+
+                </strong>
+
+            </div>
+
+            <div class="market-row">
+
+                <span>
+
+                    Engine
+
+                </span>
+
+                <strong>
+
+                    ATLAS v1
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+            TERMINAL
+    ============================ -->
+
+    <section class="terminal-card">
+
+        <div class="terminal-header">
+
+            LIVE TERMINAL
+
+        </div>
+
+        <div
+            id="sync-status"
+            class="terminal-body">
+
+            <div>
+
+                Atlas initialized.
+
+            </div>
+
+            <div>
+
+                Waiting for synchronization...
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+            SYNC
+    ============================ -->
+
+    <section class="sync-section">
+
+        <button
+
+            id="sync-btn"
+
+            onclick="syncAtlas()">
+
+            SYNC NOW
+
+        </button>
+
+    </section>
 
 </div>
+
+<script src="/static/js/app.js"></script>
 
 </body>
 
