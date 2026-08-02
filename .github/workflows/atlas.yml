@@ -1,4 +1,4 @@
-name: ATLAS Price Tracker
+name: Atlas Auto Sync
 
 on:
   workflow_dispatch:
@@ -10,31 +10,28 @@ permissions:
   contents: write
 
 jobs:
-
   scrape:
 
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Atlas
+      - name: Run scraper
         run: |
           python main.py
 
-      - name: Commit Updated Data
+      - name: Commit updated files
         run: |
           git config user.name "atlas-bot"
           git config user.email "atlas-bot@users.noreply.github.com"
@@ -42,6 +39,9 @@ jobs:
           git add latest_prices.json
           git add data/prices.db
 
-          git diff --cached --quiet || git commit -m "Auto update prices"
-
-          git push
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Auto update prices"
+            git push
+          fi
