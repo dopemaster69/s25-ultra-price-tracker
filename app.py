@@ -8,22 +8,59 @@ from fastapi.templating import Jinja2Templates
 
 from src.services.recommendation import RecommendationEngine
 from src.database.history import get_price_history
-from main import main
+from main import run_collection
 
-app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# ==========================================
+# ATLAS APPLICATION
+# ==========================================
 
-templates = Jinja2Templates(directory="templates")
+app = FastAPI(
+    title="ATLAS",
+    description="Smart Price Intelligence System",
+    version="1.0"
+)
 
+
+# ==========================================
+# STATIC FILES
+# ==========================================
+
+app.mount(
+    "/static",
+    StaticFiles(directory="static"),
+    name="static"
+)
+
+
+# ==========================================
+# TEMPLATES
+# ==========================================
+
+templates = Jinja2Templates(
+    directory="templates"
+)
+
+
+# ==========================================
+# HOME
+# ==========================================
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
 
-    with open("latest_prices.json", "r", encoding="utf-8") as file:
+    with open(
+        "latest_prices.json",
+        "r",
+        encoding="utf-8"
+    ) as file:
+
         data = json.load(file)
 
-    retailer = list(data["retailers"].keys())[0]
+    retailer = list(
+        data["retailers"].keys()
+    )[0]
+
     info = data["retailers"][retailer]
 
     analysis = RecommendationEngine().analyse()
@@ -42,22 +79,20 @@ async def home(request: Request):
     )
 
 
+# ==========================================
+# PRICE HISTORY API
+# ==========================================
+
 @app.get("/api/history")
 async def history():
 
-    return JSONResponse(content=get_price_history())
-
-
-@app.post("/api/sync")
-async def sync():
-
     try:
 
-        main()
+        history_data = get_price_history()
 
-        return {
-            "status": "success"
-        }
+        return JSONResponse(
+            content=history_data
+        )
 
     except Exception as e:
 
@@ -70,3 +105,104 @@ async def sync():
                 "message": str(e)
             }
         )
+
+
+# ==========================================
+# SYNC API
+# ==========================================
+
+@app.post("/api/sync")
+def sync():
+
+    print()
+    print("=" * 60)
+    print("ATLAS SYNC REQUEST RECEIVED")
+    print("=" * 60)
+
+    try:
+
+        print("Starting price collection...")
+
+        results = run_collection()
+
+        print("Collection completed successfully.")
+
+        successful = []
+        failed = []
+
+        for result in results:
+
+            if result.success:
+
+                successful.append({
+                    "retailer": result.retailer,
+                    "title": result.title,
+                    "storage": result.storage,
+                    "colour": result.colour,
+                    "price": result.price
+                })
+
+                print(
+                    f"SUCCESS: "
+                    f"{result.retailer} "
+                    f"₹{result.price:,}"
+                )
+
+            else:
+
+                failed.append({
+                    "retailer": result.retailer,
+                    "error": result.error
+                })
+
+                print(
+                    f"FAILED: "
+                    f"{result.retailer} "
+                    f"{result.error}"
+                )
+
+        print("latest_prices.json updated.")
+
+        print("=" * 60)
+        print("ATLAS SYNC COMPLETE")
+        print("=" * 60)
+        print()
+
+        return {
+            "status": "success",
+            "successful": successful,
+            "failed": failed
+        }
+
+    except Exception as e:
+
+        print()
+        print("=" * 60)
+        print("ATLAS SYNC FAILED")
+        print("=" * 60)
+
+        traceback.print_exc()
+
+        print("=" * 60)
+        print()
+
+        return JSONResponse(
+            status_code=500,
+            content={
+                "status": "error",
+                "message": str(e)
+            }
+        )
+
+
+# ==========================================
+# HEALTH CHECK
+# ==========================================
+
+@app.get("/api/health")
+async def health():
+
+    return {
+        "status": "online",
+        "service": "ATLAS"
+    }
