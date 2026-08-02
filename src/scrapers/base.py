@@ -23,6 +23,14 @@ class BaseScraper:
         print("Status Code:", response.status_code)
         print("Final URL :", response.url)
 
+        # Save exactly what GitHub Actions receives
+        with open(
+            "amazon_debug.html",
+            "w",
+            encoding="utf-8"
+        ) as file:
+            file.write(response.text)
+
         response.raise_for_status()
 
         return response.text
