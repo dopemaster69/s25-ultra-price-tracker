@@ -1,13 +1,13 @@
 {
-    "generated_at": "2026-08-09 15:32:06",
-    "lowest_price": 92760,
+    "generated_at": "2026-08-10 11:09:26",
+    "lowest_price": 92730,
     "lowest_retailer": "Amazon",
     "retailers": {
         "Amazon": {
             "product": "Samsung Galaxy S25 Ultra",
             "storage": "256 GB",
-            "price": 92760,
-            "updated": "2026-08-09 15:32:06"
+            "price": 92730,
+            "updated": "2026-08-10 11:09:26"
         }
     }
 }
